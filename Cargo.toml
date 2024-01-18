@@ -1,0 +1,18 @@
+[package]
+name = "ublox_pg_dump_demo"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+chrono = "0.4.29"
+clap = { version = "4.2.7", features = ["cargo"] }
+diesel = { version = "2.1.0", features = ["postgres"] }
+dotenvy = "0.15"
+serde_json = "1.0.111"
+serialport = "4.3.0"
+ublox = "0.4.5"
+
+[features]
+alloc = ["ublox/alloc"]
