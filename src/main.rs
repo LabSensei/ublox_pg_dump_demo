@@ -7,6 +7,10 @@ use clap::{value_parser, Arg, Command};
 use diesel::pg::PgConnection;
 use diesel::prelude::*;
 // use diesel::prelude::*;
+// use diesel::prelude::*;
+// use diesel::r2d2::ConnectionManager;
+// use diesel::r2d2::Pool;
+// use diesel::result::Error;
 use dotenvy::dotenv;
 use serialport::{
     DataBits as SerialDataBits, FlowControl as SerialFlowControl, Parity as SerialParity,
@@ -14,6 +18,7 @@ use serialport::{
 };
 use std::convert::TryInto;
 use std::env;
+// use std::thread;
 // use std::env::args;
 use std::time::Duration;
 use ublox::*;
@@ -343,7 +348,6 @@ Configuration includes: protocol in/out, data-bits, stop-bits, parity, baud-rate
         .expect("Unable to write request/poll for UBX-MON-VER message");
 
     // Time for Database connection
-    let connection = &mut establish_connection();
 
     // Start reading data
     println!("Opened uBlox device, waiting for messages...");
@@ -385,6 +389,7 @@ Configuration includes: protocol in/out, data-bits, stop-bits, parity, baud-rate
                                 .expect("Could not parse NAV-PVT time field to UTC");
                             println!("Time: {:?}", time);
                         }
+                        let connection = &mut establish_connection();
 
                         let tag = create_tag(
                             connection,
